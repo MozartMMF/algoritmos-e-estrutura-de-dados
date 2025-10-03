@@ -53,7 +53,7 @@ class FilaCircular:
     def __init__(self, tamanho_maximo):
         if tamanho_maximo <= 0: 
             raise ValueError("Tamanho máximo precisa ser um número positivo")
-            
+
         self._deque = Deque()
         self.tamanho_maximo = tamanho_maximo
 
@@ -78,4 +78,34 @@ class FilaCircular:
 
     def __len__(self):
         return len(self._deque)
+    
+
+if __name__ == '__main__':
+    print("Criando e usando a Fila Circular (tamanho máximo 3)")
+    fila_circular = FilaCircular(3)
+    fila_circular.exibir()
+    print("-" * 20)
+
+    fila_circular.enqueue('A')
+    fila_circular.exibir()
+    fila_circular.enqueue('B')
+    fila_circular.exibir()
+    fila_circular.enqueue('C')
+    fila_circular.exibir()
+    print("-" * 20)
+
+    print("Tentando inserir 'D' na fila cheia...")
+    fila_circular.enqueue('D')
+    fila_circular.exibir()
+    print("-" * 20)
+    
+    print("Tentando inserir 'E'...")
+    fila_circular.enqueue('E') 
+    fila_circular.exibir() 
+    print("-" * 20)
+
+    fila_circular.dequeue()
+    fila_circular.exibir()
+    fila_circular.dequeue() 
+    fila_circular.exibir()
 
