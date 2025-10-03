@@ -90,3 +90,36 @@ class Deque:
             elementos.append(str(no_atual.dado))
             no_atual = no_atual.proximo
         return "Deque: ["+", ".join(elementos) + "]"
+
+if __name__ == '__main__':
+    print(" Criando e usando o Deque")
+    deque = Deque()
+    print(deque)
+    print(f"Tamanho: {len(deque)}\n")
+
+    deque.inserir_inicio(10)
+    print(deque)
+    deque.inserir_fim(20)
+    print(deque)
+    deque.inserir_inicio(5)
+    print(deque)
+    deque.inserir_fim(30)
+    print(deque)
+    print(f"Tamanho: {len(deque)}\n")
+
+    deque.remover_inicio()
+    print(deque)
+    deque.remover_fim()
+    print(deque)
+    print(f"Tamanho: {len(deque)}\n")
+
+    deque.remover_fim()
+    print(deque)
+    deque.remover_inicio()
+    print(deque)
+    print(f"Tamanho: {len(deque)}\n")
+    
+    try:
+        deque.remover_inicio()
+    except IndexError as e:
+        print(f"Erro esperado: {e}")

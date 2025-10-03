@@ -92,28 +92,71 @@ class Deque:
         return "Deque: ["+", ".join(elementos) + "]"
 
     def remover_duplicatas(self):
-        if self.is_vazio() or self._tamanho == 1:
+        if self.is_vazio() or len(self) == 1:
             return
 
         vistos = set()
         no_atual = self.cabeca
+        anterior = None
 
         while no_atual is not None: 
-            if no_atual.dado not in vistos: 
-                vistos.add(no_atual.dado)
-                no_atual = no_atual.proximo
+            if no_atual.dado in vistos: 
+                anterior.proximo = no_atual.proximo
+
+                if no_atual.proximo is not None:
+                    no_atual.proximo.anterior = anterior
+
+                else:
+                    self.cauda = anterior
+                self._tamanho -= 1
             
             else:
-                no_duplicado = no_atual
-                no_duplicado.anterior.proximo = no_duplicado.proximo
+                vistos.add(no_atual.dado)
+                anterior = no_atual
+        
+            no_atual = no_atual.proximo
+    
+    
+def remover_duplicatas_padrao(fila):
+   
+    if fila.is_vazio():
+        return
+    vistos = set()
+    tamanho_original = len(fila)
+    for _ in range(tamanho_original):
+        elemento = fila.remover_inicio()
+        if elemento not in vistos:
+            vistos.add(elemento)
+            fila.inserir_fim(elemento)
+               
 
-                if no_duplicado is not None:
-                    no_duplicado.proximo.anterior = no_duplicado.anterior
-                
-                else:
-                    self.cauda = no_duplicado.anterior
+if __name__ == '__main__':
+    
+    dados_teste = [10, 20, 10, 30, 20, 40, 10]
 
-                no_atual = no_atual.proximo
+    print("Testando o remover_duplicatas")
+    
+    fila_metodo = Deque()
+    
+    for item in dados_teste:
+        fila_metodo.inserir_fim(item)
+    
+    print(f"Fila Original: {fila_metodo}")
+    
+    fila_metodo.remover_duplicatas()
+    
+    print(f"Fila sem Duplicatas: {fila_metodo}")
+    print("-" * 50)
 
-                del no_duplicado
-                self._tamanho -= 1
+    print("\n Testando o remover_duplicatas_padrao")
+    
+    fila_funcao = Deque()
+    
+    for item in dados_teste:
+        fila_funcao.inserir_fim(item)
+        
+    print(f"Fila Original: {fila_funcao}")
+    
+    remover_duplicatas_padrao(fila_funcao)
+    
+    print(f"Fila sem Duplicatas: {fila_funcao}")
